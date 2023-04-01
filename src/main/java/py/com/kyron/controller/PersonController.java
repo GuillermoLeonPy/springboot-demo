@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,13 +20,16 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 	
+	@Value("${applicationconstants.controllerconstants.person}")
+	private String personControllerConstant;
+	
 	private final Logger LOGGER = LoggerFactory.getLogger(PersonController.class);
 
 	@PostMapping("/person")
 	public Person createPerson(@Valid @RequestBody Person person) throws SpringBootDemoException {
-		LOGGER.info("## PersonController::createPerson" + person);
+		LOGGER.info("## PersonController::" + "::person controller constant " + personControllerConstant + "::createPerson" + person);
 		Person createdPerson = personService.createPerson(person);
 		LOGGER.info("## PersonController::createPerson:: createdPerson " + createdPerson);
-		return personService.createPerson(createdPerson);
+		return createdPerson;
 	}
 }

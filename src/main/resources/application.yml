@@ -1,6 +1,10 @@
 server:
   port: 8181
 
+applicationconstants:
+  controllerconstants:
+    person: test_value
+
 spring:
   profiles:
     active: dev
