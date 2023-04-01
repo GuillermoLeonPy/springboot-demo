@@ -12,7 +12,7 @@ spring:
 ---
 
 spring:
-  profiles: dev
+  profiles: dev   
   datasource:
     driver-class-name: org.postgresql.Driver
     password: backenduser
@@ -25,10 +25,13 @@ spring:
 welcome:
   message: Welcome to spring boot demo by Kyron!!
 
+profileconstants:
+  controllerconstants:
+    person: test_value_profile_dev
 ---
 
 spring:
-  profiles: qa
+  profiles: qa  
   datasource:
     driver-class-name: org.postgresql.Driver
     password: backenduser
@@ -40,6 +43,11 @@ spring:
     show-sql: true
 welcome:
   message: Welcome to spring boot demo by Kyron!!
+  
+profileconstants:
+  controllerconstants:
+    person: test_value_profile_qa
+
 
 management:
   endpoints:
@@ -51,7 +59,7 @@ management:
 ---
 
 spring:
-  profiles: prod
+  profiles: prod  
   datasource:
     driver-class-name: org.postgresql.Driver
     password: backenduser
@@ -63,3 +71,9 @@ spring:
     show-sql: true
 welcome:
   message: Welcome to spring boot demo by Kyron!!
+
+profileconstants:
+  controllerconstants:
+    person: test_value_profile_prod
+  
+  

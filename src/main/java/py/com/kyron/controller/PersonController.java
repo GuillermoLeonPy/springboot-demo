@@ -23,11 +23,14 @@ public class PersonController {
 	@Value("${applicationconstants.controllerconstants.person}")
 	private String personControllerConstant;
 	
+	@Value("${profileconstants.controllerconstants.person}")
+	private String personControllerProfileConstant;
+	
 	private final Logger LOGGER = LoggerFactory.getLogger(PersonController.class);
 
 	@PostMapping("/person")
 	public Person createPerson(@Valid @RequestBody Person person) throws SpringBootDemoException {
-		LOGGER.info("## PersonController::" + "::person controller constant " + personControllerConstant + "::createPerson" + person);
+		LOGGER.info("## PersonController::" + "::person controller constant " + personControllerConstant + ":: profile constant " + personControllerProfileConstant + "::createPerson" + person);
 		Person createdPerson = personService.createPerson(person);
 		LOGGER.info("## PersonController::createPerson:: createdPerson " + createdPerson);
 		return createdPerson;
