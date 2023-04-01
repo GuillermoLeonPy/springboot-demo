@@ -24,6 +24,8 @@ public class PersonController {
 	@PostMapping("/person")
 	public Person createPerson(@Valid @RequestBody Person person) throws SpringBootDemoException {
 		LOGGER.info("## PersonController::createPerson" + person);
-		return personService.createPerson(person);
+		Person createdPerson = personService.createPerson(person);
+		LOGGER.info("## PersonController::createPerson:: createdPerson " + createdPerson);
+		return personService.createPerson(createdPerson);
 	}
 }

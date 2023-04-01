@@ -1,9 +1,13 @@
 package py.com.kyron.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,51 +24,77 @@ import py.com.kyron.service.PersonService;
 @WebMvcTest(PersonController.class)
 class PersonControllerTest {
 
-	@Autowired
-	private MockMvc mockMvc;
-	
 	@MockBean
 	private PersonService personService;
 	
-	private Person person;
+	@Autowired
+	private MockMvc mockMvc;
 	
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
+	private Person person;
 
 	@BeforeEach
 	void setUp() throws Exception {		
-		person = Person.builder().ruc("123458").id(1).build();//persisted person will have id property value
+		person = getPersonMockInstance();
 	}
 
-	@AfterEach
-	void tearDown() throws Exception {
-	}
 
 	@Test
+	@DisplayName("person create test")
+	@Disabled //to skip the test
 	final void testCreatePerson() throws Exception {
-		Person inputPerson = Person.builder().ruc("123458").build();
+		/*
+		 * https://stackoverflow.com/questions/41168352/unit-test-post-with-webmvctest-mockbean-service-returns-null
+		 *  the object you mock in the service call has to be identical to the object passed into the controller
+		 * */
+		Person inputPerson = getPersonMockInstance();
 		Mockito.when(personService.createPerson(inputPerson)).thenReturn(person);
 		mockMvc.perform(MockMvcRequestBuilders.post("/person").contentType(MediaType.APPLICATION_JSON)
-				.content("{\n"//real json from a performed call to the application
-						+ "    \"id\": 4,\n"
-						+ "    \"ruc\": \"123458\",\n"
-						+ "    \"personalName\": \"Ray\",\n"
-						+ "    \"personalLastName\": null,\n"
-						+ "    \"personalAddress\": null,\n"
-						+ "    \"personalEmailAddress\": \"ray@test.com\",\n"
-						+ "    \"personalTelephoneNumber\": null,\n"
-						+ "    \"commercialName\": null,\n"
-						+ "    \"creationUser\": null,\n"
-						+ "    \"creationDate\": null,\n"
-						+ "    \"lastUpdaterUser\": null,\n"
-						+ "    \"lastUpdateDate\": null,\n"
-						+ "    \"personalCivilIdDocument\": null\n"
-						+ "}")).andExpect(MockMvcResultMatchers.status().isOk());
+				.content(getSampleJsonCreatePerson())).andExpect(MockMvcResultMatchers.status().isOk());
+	}
+	
+	@Test
+	@DisplayName("person create test")
+	//@Disabled //to skip the test
+	final void testCreatePersonImproved() throws Exception {
+		/*
+		 * https://stackoverflow.com/questions/41168352/unit-test-post-with-webmvctest-mockbean-service-returns-null
+		 *  the object you mock in the service call has to be identical to the object passed into the controller
+		 * */
+		Person inputPerson = getPersonMockInstance();
+		Mockito.when(personService.createPerson(inputPerson)).thenReturn(person);
+		mockMvc.perform(MockMvcRequestBuilders.post("/person").contentType(MediaType.APPLICATION_JSON).content(getSampleJsonCreatePerson()))
+			.andExpect(MockMvcResultMatchers.status().isOk())
+			.andExpect(jsonPath("$.ruc").value(person.getRuc()));
+	}
+	
+	private Person getPersonMockInstance() {
+		/*
+		 * https://stackoverflow.com/questions/41168352/unit-test-post-with-webmvctest-mockbean-service-returns-null
+		 *  the object you mock in the service call has to be identical to the object passed into the controller
+		 * */
+		return Person.builder().ruc("123458").personalName("Ray").personalEmailAddress("ray@test.com").build();
+	}
+	
+	private String getSampleJsonCreatePerson() {
+		/*
+		 * https://stackoverflow.com/questions/41168352/unit-test-post-with-webmvctest-mockbean-service-returns-null
+		 *  the object you mock in the service call has to be identical to the object passed into the controller
+		 * */
+		return "{\n"//real json from a performed call to the application
+				+ "    \"id\": null,\n"
+				+ "    \"ruc\": \"123458\",\n"
+				+ "    \"personalName\": \"Ray\",\n"
+				+ "    \"personalLastName\": null,\n"
+				+ "    \"personalAddress\": null,\n"
+				+ "    \"personalEmailAddress\": \"ray@test.com\",\n"
+				+ "    \"personalTelephoneNumber\": null,\n"
+				+ "    \"commercialName\": null,\n"
+				+ "    \"creationUser\": null,\n"
+				+ "    \"creationDate\": null,\n"
+				+ "    \"lastUpdaterUser\": null,\n"
+				+ "    \"lastUpdateDate\": null,\n"
+				+ "    \"personalCivilIdDocument\": null\n"
+				+ "}";
 	}
 
 }
