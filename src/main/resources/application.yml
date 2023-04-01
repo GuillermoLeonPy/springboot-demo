@@ -28,6 +28,14 @@ welcome:
 profileconstants:
   controllerconstants:
     person: test_value_profile_dev
+
+# actuator config
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
 ---
 
 spring:
@@ -48,7 +56,7 @@ profileconstants:
   controllerconstants:
     person: test_value_profile_qa
 
-
+# actuator config
 management:
   endpoints:
     web:
@@ -75,5 +83,12 @@ welcome:
 profileconstants:
   controllerconstants:
     person: test_value_profile_prod
-  
+
+# actuator config
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
   
