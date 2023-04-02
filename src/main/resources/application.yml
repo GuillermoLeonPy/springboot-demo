@@ -36,6 +36,7 @@ management:
       exposure:
         include: "*"
         exclude: "env,beans"
+# exclude actuator endpoints
 ---
 
 spring:
@@ -63,7 +64,7 @@ management:
       exposure:
         include: "*"
         exclude: "env,beans"
-
+# exclude actuator endpoints
 ---
 
 spring:
@@ -91,4 +92,4 @@ management:
       exposure:
         include: "*"
         exclude: "env,beans"
-  
+# exclude actuator endpoints

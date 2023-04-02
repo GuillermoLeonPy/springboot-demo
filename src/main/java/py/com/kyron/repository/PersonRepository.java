@@ -11,6 +11,10 @@ import py.com.kyron.entity.Person;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Integer> {
 
+	/*
+	 * https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation
+	 * */
+	
 	@Query("SELECT p FROM Person p WHERE ruc = :ruc")
 	public Optional<Person> getByRuc(String ruc);
 }
