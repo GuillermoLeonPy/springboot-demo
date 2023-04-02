@@ -55,7 +55,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     );
 
     @Modifying
-    @Transactional
+    @Transactional//annotation to create a transaction to involve any number of dml operations, specially useful in service methods that performs multiple dml operations
     @Query(
             value = "update t_student set first_name = ?1 where email_id = ?2",
             nativeQuery = true
