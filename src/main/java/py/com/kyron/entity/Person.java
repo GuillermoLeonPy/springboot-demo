@@ -1,5 +1,6 @@
 package py.com.kyron.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -19,8 +20,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder//provide builder pattern implementation
-public class Person {
+public class Person implements Serializable/*Serializable required to work with Rabbit Mq*/{
 	
+	private static final long serialVersionUID = 1L;
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;

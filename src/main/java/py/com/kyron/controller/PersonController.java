@@ -35,4 +35,12 @@ public class PersonController {
 		LOGGER.info("## PersonController::createPerson:: createdPerson " + createdPerson);
 		return createdPerson;
 	}
+	
+	@PostMapping("/personByQueue")
+	public String createPersonByQueue(@Valid @RequestBody Person person) throws SpringBootDemoException {	
+		LOGGER.info("## PersonController::" + "::person controller constant " + personControllerConstant + ":: profile constant " + personControllerProfileConstant + "::createPerson" + person);
+		personService.createPersonByQueue(person);
+		return "person creation message published to the queue";
+	}
 }
+	

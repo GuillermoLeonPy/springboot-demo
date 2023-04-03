@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import py.com.kyron.entity.Person;
 import py.com.kyron.exception.SpringBootDemoException;
+import py.com.kyron.queue.PublisherRabbitMq;
 import py.com.kyron.repository.PersonRepository;
 import py.com.kyron.service.PersonService;
 import java.util.Optional;
@@ -15,6 +16,9 @@ public class PersonServiceImpl implements PersonService {
 
 	@Autowired
 	private PersonRepository personRepository;
+	
+	@Autowired
+	private PublisherRabbitMq publisherRabbitMq;
 	
 	@Override
 	public Person createPerson(Person person) throws SpringBootDemoException {
@@ -28,6 +32,12 @@ public class PersonServiceImpl implements PersonService {
 		}
 		
 		return personRepository.save(person);
+	}
+
+	@Override
+	public void createPersonByQueue(Person person) throws SpringBootDemoException {
+		// TODO Auto-generated method stub
+		publisherRabbitMq.sendPerson(person);		
 	}
 
 }

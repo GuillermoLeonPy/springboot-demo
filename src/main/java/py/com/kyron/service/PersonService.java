@@ -6,4 +6,5 @@ import py.com.kyron.exception.SpringBootDemoException;
 public interface PersonService {
 
 	public Person createPerson(Person person) throws SpringBootDemoException;
+	public void createPersonByQueue(Person person) throws SpringBootDemoException;
 }
