@@ -1,7 +1,9 @@
 package py.com.kyron.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import py.com.kyron.entity.Person;
@@ -20,6 +22,11 @@ public class PersonServiceImpl implements PersonService {
 	@Autowired
 	private PublisherRabbitMq publisherRabbitMq;
 	
+    @Autowired
+    private KafkaTemplate<String,Person> kafkaTemplate;
+	@Value("${kafka.topic.person}")
+	private String kafkaTopicPerson;	
+	
 	@Override
 	public Person createPerson(Person person) throws SpringBootDemoException {
 		// TODO Auto-generated method stub
@@ -35,9 +42,15 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public void createPersonByQueue(Person person) throws SpringBootDemoException {
+	public void createPersonByRabbitMqQueue(Person person) throws SpringBootDemoException {
 		// TODO Auto-generated method stub
 		publisherRabbitMq.sendPerson(person);		
+	}
+
+	@Override
+	public void createPersonByKafkaQueue(Person person) throws SpringBootDemoException {
+		// TODO Auto-generated method stub
+		kafkaTemplate.send(kafkaTopicPerson, person);
 	}
 
 }

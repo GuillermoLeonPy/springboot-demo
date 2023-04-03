@@ -39,6 +39,10 @@ kyron:
     mq:
       queue:
         name: cola1
+
+kafka:
+  topic:
+    person: spring-boot-demo-test
 # actuator config
 management:
   endpoints:
@@ -76,6 +80,10 @@ kyron:
     mq:
       queue:
         name: cola1
+
+kafka:
+  topic:
+    person: spring-boot-demo-test
 # actuator config
 management:
   endpoints:
@@ -113,6 +121,9 @@ kyron:
     mq:
       queue:
         name: cola1
+kafka:
+  topic:
+    person: spring-boot-demo-test
 # actuator config
 management:
   endpoints:

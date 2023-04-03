@@ -1,0 +1,12 @@
+sudo docker exec -it 8a08e7605716 /bin/sh
+$ pwd
+/opt/bitnami/kafka/bin
+
+$ kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic spring-boot-demo-test    
+Created topic spring-boot-demo-test.
+$ $ kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic spring-boot-demo-test-news
+Created topic spring-boot-demo-test-news.
+$ kafka-topics.sh --list --bootstrap-server localhost:9092
+spring-boot-demo-test
+spring-boot-demo-test-news
+$ 

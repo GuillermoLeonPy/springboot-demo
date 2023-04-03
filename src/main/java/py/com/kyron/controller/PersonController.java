@@ -53,11 +53,18 @@ public class PersonController {
 		return createdPerson;
 	}
 	
-	@PostMapping("/personByQueue")
-	public String createPersonByQueue(@Valid @RequestBody Person person) throws SpringBootDemoException {	
+	@PostMapping("/personByRabbitMqQueue")
+	public String personByRabbitMqQueue(@Valid @RequestBody Person person) throws SpringBootDemoException {	
 		LOGGER.info("## PersonController::" + "::person controller constant " + personControllerConstant + ":: profile constant " + personControllerProfileConstant + "::createPerson" + person);
-		personService.createPersonByQueue(person);
-		return "person creation message published to the queue";
+		personService.createPersonByRabbitMqQueue(person);
+		return "person creation message published to the Rabbit Mq queue";
+	}
+	
+	@PostMapping("/createPersonByKafkaQueue")
+	public String createPersonByKafkaQueue(@Valid @RequestBody Person person) throws SpringBootDemoException {	
+		LOGGER.info("## PersonController::" + "::person controller constant " + personControllerConstant + ":: profile constant " + personControllerProfileConstant + "::createPerson" + person);
+		personService.createPersonByKafkaQueue(person);
+		return "person creation message published to Kafka queue";
 	}
 }
 	
