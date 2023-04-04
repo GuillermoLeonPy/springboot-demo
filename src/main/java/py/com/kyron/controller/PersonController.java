@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -54,17 +55,17 @@ public class PersonController {
 	}
 	
 	@PostMapping("/personByRabbitMqQueue")
-	public String personByRabbitMqQueue(@Valid @RequestBody Person person) throws SpringBootDemoException {	
+	public ResponseEntity<String> personByRabbitMqQueue(@Valid @RequestBody Person person) throws SpringBootDemoException {	
 		LOGGER.info("## PersonController::" + "::person controller constant " + personControllerConstant + ":: profile constant " + personControllerProfileConstant + "::createPerson" + person);
 		personService.createPersonByRabbitMqQueue(person);
-		return "person creation message published to the Rabbit Mq queue";
+		return ResponseEntity.ok("person creation message published to the Rabbit Mq queue");
 	}
 	
 	@PostMapping("/createPersonByKafkaQueue")
-	public String createPersonByKafkaQueue(@Valid @RequestBody Person person) throws SpringBootDemoException {	
+	public ResponseEntity<String> createPersonByKafkaQueue(@Valid @RequestBody Person person) throws SpringBootDemoException {	
 		LOGGER.info("## PersonController::" + "::person controller constant " + personControllerConstant + ":: profile constant " + personControllerProfileConstant + "::createPerson" + person);
 		personService.createPersonByKafkaQueue(person);
-		return "person creation message published to Kafka queue";
+		return ResponseEntity.ok("person creation message published to Kafka queue");
 	}
 }
 	

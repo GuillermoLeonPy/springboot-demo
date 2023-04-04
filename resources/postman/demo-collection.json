@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "ac0d6f80-296d-43ab-a5ca-7031f1a16c88",
+		"name": "Springboot-demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7813871"
+	},
+	"item": [
+		{
+			"name": "create person",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ruc\":\"433459\",\n    \"personalName\": \"Pat\",\n    \"personalEmailAddress\":\"pat@test.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8181/person",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"person"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create person queue",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ruc\":\"453459\",\n    \"personalName\": \"bob\",\n    \"personalEmailAddress\":\"bob@test.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8181/personByQueue",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"personByQueue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create person queue kafka",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ruc\":\"463459\",\n    \"personalName\": \"ted\",\n    \"personalEmailAddress\":\"ted@test.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8181/createPersonByKafkaQueue",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"createPersonByKafkaQueue"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
