@@ -1,4 +1,5 @@
 package py.com.kyron.exception;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,6 +18,14 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 	public ResponseEntity<ErrorMessage> handleSpringBootDemoException(SpringBootDemoException springBootDemoException, WebRequest request){
 		
 		ErrorMessage message = new ErrorMessage(springBootDemoException.getHttpStatus(), springBootDemoException.getMessage());
+		return ResponseEntity.status(message.getStatus())
+                .body(message);
+	}
+	
+	@ExceptionHandler(Throwable.class)
+	public ResponseEntity<ErrorMessage> handleSpringBootDemoException(Throwable throwable, WebRequest request){
+		
+		ErrorMessage message = new ErrorMessage(HttpStatus.BAD_REQUEST, throwable.getMessage());
 		return ResponseEntity.status(message.getStatus())
                 .body(message);
 	}
